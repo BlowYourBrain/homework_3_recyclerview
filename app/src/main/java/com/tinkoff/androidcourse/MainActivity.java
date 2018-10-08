@@ -4,8 +4,11 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import static android.support.v7.widget.RecyclerView.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,18 +20,16 @@ public class MainActivity extends AppCompatActivity {
 
 		MainActivityViewModel model = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 
-
-		RecyclerView recyclerView = findViewById(R.id.recyclerView);
-		setupRecyclerView(recyclerView, model.getAdapter());
+		final RecyclerView recyclerView = findViewById(R.id.recyclerView);
+		final Adapter adapter = model.getAdapter();
+		setupRecyclerView(recyclerView, adapter);
 
 
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				/**
-				 * Реализовать добавление тестовых работников
-				 */
+				adapter.addItem(WorkerGenerator.generateWorker());
 			}
 		});
 
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 	private void setupRecyclerView(RecyclerView recyclerView, Adapter adapter) {
-
+		LayoutManager layoutManager = new LinearLayoutManager(this);
+		recyclerView.setLayoutManager(layoutManager);
+		recyclerView.setAdapter(adapter);
 	}
 }
