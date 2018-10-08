@@ -29,16 +29,10 @@ public class MainActivity extends AppCompatActivity {
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				adapter.addItem(WorkerGenerator.generateWorker());
+				int position = adapter.addItem(WorkerGenerator.generateWorker());
+				recyclerView.smoothScrollToPosition(position);
 			}
 		});
-
-
-		/**
-		 * Реализовать адаптер, выбрать любой LayoutManager и прикрутить это всё к RecyclerView
-		 *
-		 * Тестовые данные для отображения генерятся WorkerGenerator
-		 */
 	}
 
 
