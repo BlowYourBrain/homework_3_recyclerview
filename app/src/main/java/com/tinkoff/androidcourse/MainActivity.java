@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -45,5 +46,8 @@ public class MainActivity extends AppCompatActivity {
 		android.support.v7.widget.helper.ItemTouchHelper.Callback callback = new ItemTouchHelper(adapter);
 		android.support.v7.widget.helper.ItemTouchHelper itemTouchHelper = new android.support.v7.widget.helper.ItemTouchHelper(callback);
 		itemTouchHelper.attachToRecyclerView(recyclerView);
+
+		DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
+		recyclerView.addItemDecoration(decoration);
 	}
 }
