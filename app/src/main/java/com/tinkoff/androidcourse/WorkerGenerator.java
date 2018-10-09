@@ -26,6 +26,7 @@ public class WorkerGenerator {
             index = randomGenerator.nextInt(malePhoto.size());
             Integer randomPhoto = malePhoto.get(index);
             worker.setPhoto(randomPhoto);
+            worker.setGender(Worker.MALE);
         } else {
             index = randomGenerator.nextInt(femaleNames.size());
             String randomName = femaleNames.get(index);
@@ -35,6 +36,7 @@ public class WorkerGenerator {
             index = randomGenerator.nextInt(femalePhoto.size());
             Integer randomPhoto = femalePhoto.get(index);
             worker.setPhoto(randomPhoto);
+            worker.setGender(Worker.FEMALE);
         }
         worker.setAge(Integer.toString(20 + randomGenerator.nextInt(10)));
         index = randomGenerator.nextInt(positions.size());

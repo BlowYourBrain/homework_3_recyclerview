@@ -1,7 +1,5 @@
 package com.tinkoff.androidcourse
 
-import android.content.res.Resources
-import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.tinkoff.androidcourse.TouchHelper.ItemTouchHelperAdapter
 
+const val MALE = 0
+const val FEMALE = 1
+
 class Adapter(val data: MutableList<Worker>) : RecyclerView.Adapter<Adapter.ViewHolder>(), ItemTouchHelperAdapter {
-    val startPosition = 0
+
+    companion object {
+        const val START_POSITION = 0
+    }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val name = v.findViewById<TextView>(R.id.name)
@@ -19,8 +23,13 @@ class Adapter(val data: MutableList<Worker>) : RecyclerView.Adapter<Adapter.View
         val image = v.findViewById<ImageView>(R.id.image)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (data[position].gender == Worker.MALE) MALE else FEMALE
+    }
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-        val layout = LayoutInflater.from(p0.context).inflate(R.layout.adapter_item, p0, false)
+        val layoutId = if (p1 == MALE) R.layout.adapter_item_male else R.layout.adapter_item_female
+        val layout = LayoutInflater.from(p0.context).inflate(layoutId, p0, false)
         return ViewHolder(layout)
     }
 
@@ -38,8 +47,8 @@ class Adapter(val data: MutableList<Worker>) : RecyclerView.Adapter<Adapter.View
 
     /**Добавление нового объекта в начало списка*/
     fun addItem(worker: Worker) {
-        data.add(startPosition, worker)
-        notifyItemInserted(startPosition)
+        data.add(START_POSITION, worker)
+        notifyItemInserted(START_POSITION)
     }
 
     override fun onItemMove(positionFrom: Int, positionTo: Int) {
