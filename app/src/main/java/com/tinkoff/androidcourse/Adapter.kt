@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import java.util.zip.Inflater
+import com.tinkoff.androidcourse.TouchHelper.ItemTouchHelperAdapter
 
-class Adapter(val data: MutableList<Worker>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(val data: MutableList<Worker>) : RecyclerView.Adapter<Adapter.ViewHolder>(), ItemTouchHelperAdapter {
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val name = v.findViewById<TextView>(R.id.name)
@@ -22,9 +22,9 @@ class Adapter(val data: MutableList<Worker>) : RecyclerView.Adapter<Adapter.View
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        p0.name.setText(data.get(p1).name)
-        p0.image.setImageResource(data.get(p1).photo)
-        p0.position.setText(data.get(p1).position)
+        p0.name.text = data[p1].name
+        p0.position.text = data[p1].position
+        p0.image.setImageResource(data[p1].photo)
     }
 
 
@@ -41,7 +41,17 @@ class Adapter(val data: MutableList<Worker>) : RecyclerView.Adapter<Adapter.View
         data.add(worker)
 
         val position = data.size - 1
-        notifyItemChanged(position)
+        notifyItemRemoved(position)
         return position
+    }
+
+    override fun onItemMove(positionFrom: Int, positionTo: Int) {
+        data[positionFrom] = data[positionTo].also { data[positionTo] = data[positionFrom] }
+        notifyItemMoved(positionFrom, positionTo)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        data.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

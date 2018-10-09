@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.tinkoff.androidcourse.TouchHelper.ItemTouchHelper;
+
 import static android.support.v7.widget.RecyclerView.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 		final Adapter adapter = model.getAdapter();
 		setupRecyclerView(recyclerView, adapter);
 
-
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -40,5 +41,9 @@ public class MainActivity extends AppCompatActivity {
 		LayoutManager layoutManager = new LinearLayoutManager(this);
 		recyclerView.setLayoutManager(layoutManager);
 		recyclerView.setAdapter(adapter);
+
+		android.support.v7.widget.helper.ItemTouchHelper.Callback callback = new ItemTouchHelper(adapter);
+		android.support.v7.widget.helper.ItemTouchHelper itemTouchHelper = new android.support.v7.widget.helper.ItemTouchHelper(callback);
+		itemTouchHelper.attachToRecyclerView(recyclerView);
 	}
 }
