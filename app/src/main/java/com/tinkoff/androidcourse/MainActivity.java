@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				int position = adapter.addItem(WorkerGenerator.generateWorker());
-				recyclerView.smoothScrollToPosition(position);
+				recyclerView.smoothScrollToPosition(adapter.getStartPosition());
+				adapter.addItem(WorkerGenerator.generateWorker());
 			}
 		});
 	}

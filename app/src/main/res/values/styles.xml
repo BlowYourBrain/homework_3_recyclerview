@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AdapterText">
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AdapterText.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
